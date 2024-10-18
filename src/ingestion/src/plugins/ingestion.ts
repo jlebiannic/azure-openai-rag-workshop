@@ -20,12 +20,13 @@ export class IngestionService {
       splitPages: false,
     });
     const rawDocuments = await loader.load();
+    // Ajout du nom du fichier dans les metadat (il y a un seul doc ici d'où le rawDocuments[0])
     rawDocuments[0].metadata.source = file.filename;
 
     // Split the text into smaller chunks
     const splitter = new RecursiveCharacterTextSplitter({
-      chunkSize: 1500,
-      chunkOverlap: 100,
+      chunkSize: 1500, // chunks
+      chunkOverlap: 100, // nombre de caract de recouvrement
     });
     const documents = await splitter.splitDocuments(rawDocuments);
 
